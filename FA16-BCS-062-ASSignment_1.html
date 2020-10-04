@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Assignment of table_form</title>
+<meta title="viewport" content="width=device width, initial-scale=1">
+
+<link
+rel="stylesheet"  href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+
+
+</head>
+
+
+
+<body>
+
+
+    <div class="container" style="margin-top: 4%;">
+        <div class="row">
+                <div class="col-sm-5">
+                    <div class="table1" style="background-color:#41A135;">
+                        <table class="table table-dark" id="table" border="1">
+                            <h1>List Of Persons</h1>
+                            <tr>
+                                <th>Name</th>
+                                <th>Gender</th>
+                                <th>Age</th>
+                                <th>city</th>
+                                <th>Action</th>
+
+                            </tr>
+                            <tr>
+                                <td>Asad</td>
+                                <td>Male</td>
+                                <td>24</td>
+                                <td>Lahore</td>
+                                <td><a class="btn btn-primary" href="#">Update</a><br><br> <a class="btn btn-primary" href="#"> Remove</a></td>
+                            </tr>
+                            <tr>
+                                <td>Ali</td>
+                                <td>Male</td>
+                                <td>21</td>
+                                <td>Islamabad</td>
+                                <td><a class="btn btn-primary" href="#">Update</a><br><br><a class="btn btn-primary" href="#">Remove</a></td>
+                            </tr>
+                            <tr>
+                                <td>Fatima</td>
+                                <td>Female</td>
+                                <td>22</td>
+                                <td>Multan</td>
+                                <td><a class="btn btn-primary" href="#">Update</a> <br><br><a class="btn btn-primary" href="#"> Remove</a></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                        <div class="col-sm-2"></div>
+
+                        <div class="col-sm-5">
+                            <div class="formmm">
+
+
+                                <h3>Add/Update Person Form</h3>
+                                <form class="form-group">
+                                    <br>
+                                    <label for="name">Name:</label>
+                                    <input type="text" id="name" name="name"><br>
+
+                                    <label for="gender">Gender:   </label>
+                                    <label for="male">Male</label>
+                                    <input type="radio" id="male" name="male" value="Male">
+
+                                    <label for="female">Female</label>
+                                    <input type="radio" id="female" name="female" value="Female"> <br>
+
+                                    <label for="age">Age:</label>
+                                    <input type="text" id="age" name="age"> <br><br>
+
+
+                                    <label for="city">City:</label>
+                                    <select id="city">
+                                    <option value="selection">--Select City--</option>
+                                     <option value="Lahore">Lahore</option>
+                                    <option value="Multan">Karachi</option>
+                                    <option value="Islamabad">Islamabad</option>
+                                    <option value="Another">Another</option>
+                                    </select>
+                                  </form>
+
+
+                                <button class="btn btn-primary"type="button" id="addButton" onclick="addHtmlTableRow(); ">Add</button>
+                                <button  class="btn btn-primary"type="button" id="updateButton" onclick="editHtmlTbleSelectedRow();">Update</button>
+                                <button class="btn btn-primary"type="button" id="removerButton" onclick="resetSelectedRow(); ">Reset</button>
+                                <button class="btn btn-primary"type="button" id="removerButton" onclick="removeSelectedRow(); ">Remove</button>
+                            </div>
+                        </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+<script>
+
+                    var index,
+                    table = document.getElementById("table");
+
+
+                function checkEmptyInput()
+                {
+                    var isEmpty = false,
+                        name = document.getElementById("name").value,
+                        age = document.getElementById("age").value;
+                        male = document.getElementById("male").value;
+                        female = document.getElementById("female").value;
+                        city = document.getElementById("city").value;
+
+
+
+                    if(name === ""){
+                        alert("Name Connot Be Empty");
+                        isEmpty = true;
+                    }
+                    else if(city === "selection"){
+                        alert("City Connot Be Empty");
+                        isEmpty = true;
+                    }
+                    else if(age === ""){
+                        alert("Age Connot Be Empty");
+                        isEmpty = true;
+                    }
+
+                    return isEmpty;
+                }
+
+                // add Row
+                function addHtmlTableRow()
+                {
+
+                    if(!checkEmptyInput()){
+                    var newRow = table.insertRow(table.length),
+                        cell0 = newRow.insertCell(0),
+                        cell1 = newRow.insertCell(1),
+                        cell2 = newRow.insertCell(2),
+                        cell3 = newRow.insertCell(3),
+                        cell4 = newRow.insertCell(4),
+                        name = document.getElementById("name").value,
+                        city = document.getElementById("city").value,
+                        age = document.getElementById("age").value;
+                        gender = document.getElementById("male").value;
+
+
+                    cell0.innerHTML = name;
+                    cell1.innerHTML = gender;
+                    cell2.innerHTML = age;
+                    cell3.innerHTML = city;
+
+                    cell4.innerhtml = 
+
+                    selectedRowToInput();
+                }
+            }
+
+
+                function selectedRowToInput()
+                {
+
+                    for(var i = 1; i < table.rows.length; i++)
+                    {
+                        table.rows[i].onclick = function()
+                        {
+
+                          index = this.rowIndex;
+                          document.getElementById("name").value = this.cells[0].innerHTML;
+                          document.getElementById("male").value = this.cells[1].innerHTML;
+                          document.getElementById("age").value = this.cells[2].innerHTML;
+                          document.getElementById("city").value = this.cells[3].innerHTML;
+                        };
+                    }
+                }
+                selectedRowToInput();
+
+                function editHtmlTbleSelectedRow()
+                {
+                    var name = document.getElementById("name").value,
+                        gender = document.getElementById("male").value,
+                        age = document.getElementById("age").value;
+                        city = document.getElementById("city").value;
+                        buton = document.getElementById("addButton").value;
+
+                   if(!checkEmptyInput()){
+                    table.rows[index].cells[0].innerHTML = name;
+                    table.rows[index].cells[1].innerHTML = gender;
+                    table.rows[index].cells[2].innerHTML = age;
+                    table.rows[index].cells[3].innerHTML = city;
+                  }
+
+
+                }
+
+                function resetSelectedRow()
+                {
+
+
+                    document.getElementById("name").value = "";
+                    document.getElementById("city").value = "";
+                    document.getElementById("age").value = "";
+                    document.getElementById("male").value = "";
+                }
+
+                function removeSelectedRow()
+                {
+                    table.deleteRow(index);
+
+                    document.getElementById("name").value = "";
+                    document.getElementById("city").value = "";
+                    document.getElementById("age").value = "";
+                    document.getElementById("male").value = "";
+                }
+
+    </script>
+
+</body>
+
+</html>
